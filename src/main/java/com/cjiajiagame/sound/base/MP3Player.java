@@ -58,23 +58,39 @@ public class MP3Player {
      * 开始同步播放音乐。需要数秒时间进行加载。<br/>
      * !警告! 该方法将阻塞执行该方法的线程。
      * @throws JavaLayerException 播放器类错误
+     * @param circle 是否单曲循环
      */
-    public void play() throws JavaLayerException {
-        this.player = new Player(this.FileStream);
-        this.player.play();
+    public void play(boolean circle) throws JavaLayerException {
+        if(!circle) {
+            this.player = new Player(this.FileStream);
+            this.player.play();
+        }else{
+            while(true){
+                this.player = new Player(this.FileStream);
+                this.player.play();
+            }
+        }
     }
 
     /**
      * 开始异步播放音乐。需要数秒时间进行加载。<br/>
      * 请注意，该方法通过创建新线程来承担播放任务，故无法截获错误。
+     * @param circle 是否单曲循环
      */
-    public void playAs(){
+    public void playAs(boolean circle){
         this.AsynchronousThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    player = new Player(FileStream);
-                    player.play();
+                    if(!circle) {
+                        player = new Player(FileStream);
+                        player.play();
+                    }else{
+                        while(true){
+                            player = new Player(FileStream);
+                            player.play();
+                        }
+                    }
                 }catch (JavaLayerException e){
 
                 }
