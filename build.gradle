@@ -5,7 +5,7 @@ plugins {
 } //插件
 
 group 'com.cjiajiagame' //填入我的公司
-version 'A1-SNAPSHOT' //填入版本，如x.x.x-RELEASE/SNAPSHOT等
+version '0.1alpha' //填入版本，如x.x.x-RELEASE/SNAPSHOT等
 
 repositories {
     mavenCentral()
@@ -36,4 +36,15 @@ allprojects {
 
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
+}
+
+jar {
+    from {
+        //添加依懒到打包文件
+        //configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+        configurations.runtime.collect{zipTree(it)}
+    }
+    manifest {
+        attributes 'Main-Class': /com.cjiajiagame.sound.main.ConsoleMain/ //这里的格式是/包名.包名.主类/
+    }
 }

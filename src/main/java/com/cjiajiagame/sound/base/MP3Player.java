@@ -13,8 +13,6 @@ import java.io.IOException;
  * 针对于MP3格式音乐文件的播放类。
  */
 public class MP3Player {
-    public static void main(String[] args) {
-    }
     /**
      * 使用File对象创建播放器，并读取标签数据。
      * @param SoundFile 文件File
